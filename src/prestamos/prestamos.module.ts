@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Prestamo } from './prestamo.entity';
-import { PrestamosService } from '../../SvC/prestamos/prestamos.service';
-import { PrestamosController } from '../../SvC/prestamos/prestamos.controller';
+import { Prestamo } from './entity/prestamo.entity';
+import { PrestamosService } from './prestamos.service';
+import { PrestamosController } from './prestamos.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Prestamo])],

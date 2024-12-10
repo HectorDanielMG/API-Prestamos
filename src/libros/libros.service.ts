@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Libro } from '../../src/libros/libro.entity';
+import { Libro } from './entity/libro.entity';
+import { CreateLibroDto } from './dto/create-libro.dto';
 
 @Injectable()
 export class LibrosService {
@@ -10,8 +11,8 @@ export class LibrosService {
     private readonly libroRepository: Repository<Libro>,
   ) {}
 
-  async crearLibro(data: Partial<Libro>): Promise<Libro> {
-    const nuevoLibro = this.libroRepository.create(data);
+  async crearLibro(createLibroDto: CreateLibroDto): Promise<Libro> {
+    const nuevoLibro = this.libroRepository.create(createLibroDto);
     return await this.libroRepository.save(nuevoLibro);
   }
 
@@ -23,8 +24,8 @@ export class LibrosService {
     return await this.libroRepository.findOne({ where: { id } });
   }
 
-  async actualizarLibro(id: number, data: Partial<Libro>): Promise<Libro> {
-    await this.libroRepository.update(id, data);
+  async actualizarLibro(id: number, updateLibroDto: CreateLibroDto): Promise<Libro> {
+    await this.libroRepository.update(id, updateLibroDto);
     return this.obtenerLibroPorId(id);
   }
 
