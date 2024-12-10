@@ -1,14 +1,15 @@
 import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
 import { LibrosService } from './libros.service';
-import { Libro } from '../../src/libros/libro.entity';
+import { Libro } from './entity/libro.entity';
+import { CreateLibroDto } from './dto/create-libro.dto';
 
 @Controller('libros')
 export class LibrosController {
   constructor(private readonly librosService: LibrosService) {}
 
   @Post()
-  async crearLibro(@Body() data: Partial<Libro>): Promise<Libro> {
-    return await this.librosService.crearLibro(data);
+  async crearLibro(@Body() createLibroDto: CreateLibroDto): Promise<Libro> {
+    return await this.librosService.crearLibro(createLibroDto);
   }
 
   @Get()
@@ -24,9 +25,9 @@ export class LibrosController {
   @Put(':id')
   async actualizarLibro(
     @Param('id') id: number,
-    @Body() data: Partial<Libro>,
+    @Body() updateLibroDto: CreateLibroDto,
   ): Promise<Libro> {
-    return await this.librosService.actualizarLibro(id, data);
+    return await this.librosService.actualizarLibro(id, updateLibroDto);
   }
 
   @Delete(':id')
